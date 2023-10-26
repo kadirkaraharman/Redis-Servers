@@ -1,0 +1,1 @@
+minikube start --mount=true --mount-string=/home/kadir/Masaüstü/Redis-Sentinel/data/master:/home/docker/data/master 

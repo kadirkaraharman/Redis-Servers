@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-slave
+  labels:
+    app: redis
+spec:
+  containers:
+  - name: redis-slave
+    image: redis
+    command:
+      - redis-server
+      - "/redis-master/redis-slave.conf"
+    env:
+    - name: SLAVE
+      value: "true"
+    ports:
+    - containerPort: 6380
+    resources:
+      limits:
+        cpu: "0.1"
+    volumeMounts:
+    - mountPath: /data
+      name: redis-data-slave-data
+    - mountPath: /redis-master
+      name: config-slave
+  volumes:
+    - name: redis-data-slave-data
+      persistentVolumeClaim:
+        claimName: redis-data-slave
+    - name: config-slave
+      configMap:
+        name: redis-config-slave
+        items:
+        - key: redis-config
+          path: redis-slave.conf

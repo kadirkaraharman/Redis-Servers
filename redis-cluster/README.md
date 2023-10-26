@@ -1,0 +1,1 @@
+# These 2 redis projects have a slight difference, redis-sentinel is getting up by classic kubernetes yaml, other folder is for helm chart deployment, classic redis and, redis cluster
